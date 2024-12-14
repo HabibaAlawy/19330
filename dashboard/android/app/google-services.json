@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "981548234484",
+    "firebase_url": "https://sohila-1efc2-default-rtdb.firebaseio.com",
+    "project_id": "sohila-1efc2",
+    "storage_bucket": "sohila-1efc2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981548234484:android:8fb15d8a5852cd0ef010a1",
+        "android_client_info": {
+          "package_name": "com.example.dashboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoaF7ufPDlXeXLaiiwBBnz0IdKByDKw8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981548234484:android:c6fbd35581e2032cf010a1",
+        "android_client_info": {
+          "package_name": "com.example.mobile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoaF7ufPDlXeXLaiiwBBnz0IdKByDKw8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
