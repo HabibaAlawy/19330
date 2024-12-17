@@ -121,6 +121,17 @@ class _SensorDataScreenState extends State<SensorDataScreen> {
                 maxValue: 200, // Max speed value (example, adjust based on range)
                 unit: "m/s",
               ),
+
+              const SizedBox(height: 30),
+
+              // Speed Circular Progress Indicator
+              _buildCircularProgressIndicator(
+                label: "Air Density",
+                value: 101325 / (287*(temp+273.15)),
+                maxValue: 2, // Max speed value (example, adjust based on range)
+                unit: "",
+              ),
+
             ],
           ),
         ),

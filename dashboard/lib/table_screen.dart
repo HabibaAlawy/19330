@@ -27,13 +27,19 @@ class _TablesScreenState extends State<TablesScreen> {
       final data = snapshot.docs.map((doc) {
         final timestamp = doc.id; // Use document ID as the timestamp
         final sensorData = doc.data();
+        final double? temp = (sensorData['temp'] as num?)?.toDouble();
+        final double? density = temp != null
+            ? 101325 / (287 * (temp + 273.15))
+            : null;
+
         return {
           'timestamp': timestamp,
-          'temperature': sensorData['temp'] ?? 'N/A',
-          'humidity': sensorData['humidity'] ?? 'N/A',
-          'voltage': sensorData['voltage'] ?? 'N/A',
-          'current': sensorData['current'] ?? 'N/A',
-          'speed': sensorData['speed'] ?? 'N/A',
+          'temperature': temp?.toStringAsFixed(2) ?? 'N/A',
+          'humidity': sensorData['humidity']?.toStringAsFixed(2) ?? 'N/A',
+          'voltage': sensorData['voltage']?.toStringAsFixed(2) ?? 'N/A',
+          'current': sensorData['current']?.toStringAsFixed(2) ?? 'N/A',
+          'speed': sensorData['speed']?.toStringAsFixed(2) ?? 'N/A',
+          'density': density?.toStringAsFixed(2) ?? 'N/A',
         };
       }).toList();
 
@@ -70,6 +76,7 @@ class _TablesScreenState extends State<TablesScreen> {
               DataColumn(label: Text('Voltage (V)')),
               DataColumn(label: Text('Current (A)')),
               DataColumn(label: Text('Speed (m/s)')),
+              DataColumn(label: Text('Density (kg/m³)')),
             ],
             rows: _sensorData.map((data) {
               return DataRow(
@@ -79,23 +86,27 @@ class _TablesScreenState extends State<TablesScreen> {
                     style: const TextStyle(color: Colors.white), // Changed text color
                   )),
                   DataCell(Text(
-                    data['temperature'].toString(),
+                    data['temperature'],
                     style: const TextStyle(color: Colors.white), // Changed text color
                   )),
                   DataCell(Text(
-                    data['humidity'].toString(),
+                    data['humidity'],
                     style: const TextStyle(color: Colors.white), // Changed text color
                   )),
                   DataCell(Text(
-                    data['voltage'].toString(),
+                    data['voltage'],
                     style: const TextStyle(color: Colors.white), // Changed text color
                   )),
                   DataCell(Text(
-                    data['current'].toString(),
+                    data['current'],
                     style: const TextStyle(color: Colors.white), // Changed text color
                   )),
                   DataCell(Text(
-                    data['speed'].toString(),
+                    data['speed'],
+                    style: const TextStyle(color: Colors.white), // Changed text color
+                  )),
+                  DataCell(Text(
+                    data['density'],
                     style: const TextStyle(color: Colors.white), // Changed text color
                   )),
                 ],

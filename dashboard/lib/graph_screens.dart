@@ -17,6 +17,7 @@ class _SensorScatterPlotPageState extends State<SensorScatterPlotPage> {
   List<ScatterSpot> _currentPoints = [];
   List<ScatterSpot> _tempVoltagePoints = [];
   List<ScatterSpot> _tempCurrentPoints = [];
+  List<ScatterSpot> _airDensityPoints = [];
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _SensorScatterPlotPageState extends State<SensorScatterPlotPage> {
       List<ScatterSpot> currentPoints = [];
       List<ScatterSpot> tempVoltagePoints = [];
       List<ScatterSpot> tempCurrentPoints = [];
+      List<ScatterSpot> airDensityPoints = [];
 
       snapshot.docs.forEach((doc) {
         final timestamp =
@@ -47,6 +49,9 @@ class _SensorScatterPlotPageState extends State<SensorScatterPlotPage> {
         final voltage = (data['voltage'] as num).toDouble();
         final current = (data['current'] as num).toDouble();
 
+        // Calculate air density using the given formula: p = 101325 / (287 * (temp + 273.15))
+        final airDensity = 101325 / (287 * (temp + 273.15));
+
         tempPoints.add(ScatterSpot(timestamp, temp));
         humidityPoints.add(ScatterSpot(timestamp, (data['humidity'] as num).toDouble()));
         speedPoints.add(ScatterSpot(timestamp, (data['speed'] as num).toDouble()));
@@ -55,6 +60,7 @@ class _SensorScatterPlotPageState extends State<SensorScatterPlotPage> {
 
         tempVoltagePoints.add(ScatterSpot(temp, voltage));
         tempCurrentPoints.add(ScatterSpot(temp, current));
+        airDensityPoints.add(ScatterSpot(timestamp, airDensity));
       });
 
       setState(() {
@@ -65,6 +71,7 @@ class _SensorScatterPlotPageState extends State<SensorScatterPlotPage> {
         _currentPoints = currentPoints;
         _tempVoltagePoints = tempVoltagePoints;
         _tempCurrentPoints = tempCurrentPoints;
+        _airDensityPoints = airDensityPoints;
       });
     } catch (e) {
       print('Error fetching data: $e');
@@ -156,6 +163,15 @@ class _SensorScatterPlotPageState extends State<SensorScatterPlotPage> {
                       color: Colors.white),
                 ),
                 _buildScatterPlot(_tempCurrentPoints, Colors.yellowAccent, 'A'),
+                const SizedBox(height: 20),
+                const Text(
+                  'Air Density',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                _buildScatterPlot(_airDensityPoints, Colors.cyanAccent, 'kg/m³'),
               ],
             ),
           ),
